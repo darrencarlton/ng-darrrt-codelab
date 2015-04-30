@@ -1,4 +1,4 @@
-// Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -7,7 +7,7 @@ library s7_service.test_names_service;
 import 'dart:async';
 
 import 'package:angular/angular.dart';
-import 'package:s7_service/services/names_service.dart';
+import 'package:s7_service/service/names_service.dart';
 
 const NAME = "Misko";
 const APPELLATION = "magnificent";

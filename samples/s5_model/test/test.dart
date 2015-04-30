@@ -1,4 +1,4 @@
-// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -8,9 +8,8 @@ import 'package:unittest/unittest.dart';
 import 'package:di/di.dart';
 import 'package:angular/angular.dart';
 import 'package:angular/mock/module.dart';
-import 'package:s5_model/badge_controller.dart';
-import 'package:s5_model/pirate_module.dart';
-import 'package:s5_model/model.dart' show PirateName;
+import '../web/main.dart';
+import 'package:s5_model/component/pirate.dart';
 
 main() {
   const NAME = "Misko";
@@ -29,34 +28,46 @@ main() {
     });
   });
 
-  group('BadgeController', () {
-    BadgeController ctrl;
+
+  group('PirateComponent', () {
+    Injector injector;
+    PirateComponent pirateComponent;
 
     setUp(module((Module m) {
-      m.install(new PirateModule());
-      inject((BadgeController _ctrl) => ctrl = _ctrl);
+      m.install(new PirateAppModule());
+      inject((Injector _injector) {
+              injector = _injector;
+      });
     }));
 
     test('initial state', () {
-      expect(BadgeController.names.length, greaterThan(0));
-      expect(ctrl.inputIsNotEmpty, isFalse);
-      expect(ctrl.label, BadgeController.LABEL2);
+      pirateComponent = injector.get(PirateComponent);
+
+      expect(PirateComponent.names.length, greaterThan(0));
+      expect(pirateComponent.inputIsNotEmpty, isFalse);
+      expect(pirateComponent.label, PirateComponent.LABEL2);
     });
 
     test('generateName() should generate name', () {
-      expect(ctrl.name, isEmpty);
-      ctrl.generateName();
-      expect(BadgeController.names.contains(ctrl.name), isTrue);
+      pirateComponent = injector.get(PirateComponent);
+
+      expect(pirateComponent.name, isEmpty);
+      pirateComponent.generateName();
+      expect(PirateComponent.names.contains(pirateComponent.name), isTrue);
     });
 
     test('names setter should generate name', () {
-      expect(ctrl.name, isEmpty);
-      expect(ctrl.pn.firstName, isEmpty);
-      expect(ctrl.pn.appellation, isEmpty);
-      ctrl.name = NAME;
-      expect(ctrl.pn.firstName, NAME);
-      expect(BadgeController.appellations.contains(ctrl.pn.appellation),
+      pirateComponent = injector.get(PirateComponent);
+
+      expect(pirateComponent.name, isEmpty);
+      expect(pirateComponent.pn.firstName, isEmpty);
+      expect(pirateComponent.pn.appellation, isEmpty);
+      pirateComponent.name = NAME;
+      expect(pirateComponent.pn.firstName, NAME);
+      expect(PirateComponent.appellations.contains(pirateComponent.pn.appellation),
           isTrue);
     });
   });
+
+
 }

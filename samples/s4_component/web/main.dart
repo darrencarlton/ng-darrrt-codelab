@@ -5,11 +5,20 @@
 library s4_component.main;
 
 import 'package:angular/angular.dart';
-import 'package:s4_component/pirate_module.dart';
+import 'package:angular/application_factory.dart';
 
-@MirrorsUsed(override: '*')
-import 'dart:mirrors';
+import 'package:s4_component/component/pirate.dart';
+import 'package:s4_component/component/badge.dart';
+
+class PirateAppModule extends Module {
+  PirateAppModule() {
+    bind(PirateComponent);
+    bind(BadgeComponent);
+  }
+}
 
 void main() {
-  ngBootstrap(module: new PirateModule());
+  applicationFactory()
+      .addModule(new PirateAppModule())
+      .run();
 }

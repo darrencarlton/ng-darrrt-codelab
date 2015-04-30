@@ -1,4 +1,4 @@
-// Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -9,10 +9,10 @@ import 'package:di/di.dart';
 import 'package:angular/angular.dart';
 import 'package:angular/mock/module.dart';
 
-import 'package:s7_service/badge_controller.dart';
+import 'package:s7_service/component/pirate.dart';
 
 import 'test_module.dart';
-import 'test_names_service.dart' as TestService;
+import 'test_names_service.dart' as TestNamesService;
 
 main() {
   setUp(() {
@@ -23,19 +23,23 @@ main() {
 
   group('fetching data', () {
     Injector injector;
-    BadgeController ctrl;
+    PirateComponent pirate;
 
     setUp((){
-      inject((Injector injector) {
-        ctrl = injector.get(BadgeController);
+      inject((Injector _injector) {
+        injector = _injector;
       });
     });
 
     test('should fetch a pirate name', async(() {
-      expect(ctrl.name, isEmpty);
-      ctrl.generateName();
+      pirate = injector.get(PirateComponent);
+
+      expect(pirate.name, isEmpty);
+      pirate.generateName();
+
       microLeap();
-      expect(ctrl.name, TestService.NAME);
+
+      expect(pirate.name, TestNamesService.NAME);
     }));
   });
 }

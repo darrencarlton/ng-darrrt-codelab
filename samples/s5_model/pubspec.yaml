@@ -1,8 +1,14 @@
 name: s5_model
 description: A one hour exercise, based on the Darrrt project, to learn AngularDart.
 dependencies:
-  angular: 0.9.8
+  angular: 1.1.2
+  web_components: any
   browser: any
-  js: any
-  shadow_dom: any
+dev_dependencies:
   unittest: any
+  mock: any
+transformers:
+- angular:
+    html_files:
+      - lib/component/pirate.html
+      - lib/component/badge.html
